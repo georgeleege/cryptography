@@ -1,4 +1,4 @@
-#include "libvigenere.h"
+#include "substitution.h"
 #include <catch2/catch_test_macros.hpp>
 
 TEST_CASE("Vigenere encrypt with empty key returns same", "[vigenere]") {
@@ -34,11 +34,13 @@ TEST_CASE("Vigenere decrypt with key ' !'", "[vigenere]") {
 }
 
 TEST_CASE("Vigenere encrypt with key longer than text", "[vigenere]") {
-  REQUIRE(vigenere_encrypt(" ! ! ! ! ! ! ! ! !", "Hello World!") == "Hflmo!Wprmd\"");
+  REQUIRE(vigenere_encrypt(" ! ! ! ! ! ! ! ! !", "Hello World!") ==
+          "Hflmo!Wprmd\"");
 }
 
 TEST_CASE("Vigenere decrypt with key longer than text", "[vigenere]") {
-  REQUIRE(vigenere_decrypt(" ! ! ! ! ! ! ! ! !", "Hflmo!Wprmd\"") == "Hello World!");
+  REQUIRE(vigenere_decrypt(" ! ! ! ! ! ! ! ! !", "Hflmo!Wprmd\"") ==
+          "Hello World!");
 }
 
 TEST_CASE("Vigenere encrypt with key that requires loop around", "[vigenere]") {

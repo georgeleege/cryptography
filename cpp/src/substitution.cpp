@@ -46,3 +46,40 @@ std::string vigenere_decrypt(std::string key, std::string ciphertext) {
   }
   return output;
 }
+
+std::string autokey_encrypt(std::string key, std::string plaintext) {
+  if (key.size() == 0) {
+    return plaintext;
+  }
+  auto autokey = key + plaintext;
+  return vigenere_encrypt(autokey, plaintext);
+}
+
+std::string autokey_decrypt(std::string key, std::string ciphertext) {
+  if (key.size() == 0) {
+    return ciphertext;
+  }
+
+  // can do the following recursively, but maybe not great for small keys
+  std::string output = "";
+
+  auto c_pos = 0;
+  for (auto i = 0; i < key.size() && i < ciphertext.size(); ++i) {
+    char c = ciphertext[i] - ' ';
+    char k = key[i] - ' ';
+    // modulo with different signs is not standardized
+    char shifted = (95 + (c - k)) % 95 + ' ';
+    ++c_pos;
+    output += shifted;
+  }
+  while (c_pos < ciphertext.size()) {
+    char c = ciphertext[c_pos] - ' ';
+    char k = ciphertext[c_pos - key.size()] - ' ';
+    // modulo with different signs is not standardized
+    char shifted = (95 + (c - k)) % 95 + ' ';
+    ++c_pos;
+    output += shifted;
+  }
+
+  return output;
+}

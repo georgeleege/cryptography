@@ -3,6 +3,9 @@
 
 #include <string>
 
+char shift(int key, char in);
+char shift_char(signed char key, char in);
+
 std::string caesar_shift(int key, std::string text);
 
 std::string vigenere_encrypt(std::string key, std::string plaintext);

@@ -9,5 +9,12 @@ project(Cryptography VERSION 1.0
                      LANGUAGES CXX)
 
 add_subdirectory(src)
-add_subdirectory(tests)
-add_subdirectory(lib/Catch2)
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+    include(CTest)
+endif()
+
+if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME AND BUILD_TESTING)
+    add_subdirectory(tests)
+    add_subdirectory(lib/Catch2)
+endif()

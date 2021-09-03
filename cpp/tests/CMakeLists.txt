@@ -10,3 +10,5 @@ target_link_libraries(tests PRIVATE
                       substitution
                       transposition
 )
+
+add_test(unit tests)

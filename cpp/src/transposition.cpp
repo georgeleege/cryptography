@@ -13,7 +13,6 @@ std::string transpose_col_encrypt(int width, std::string plaintext) {
     }
   }
   return output;
-
 }
 
 std::string transpose_col_decrypt(int width, std::string ciphertext) {
@@ -22,5 +21,18 @@ std::string transpose_col_decrypt(int width, std::string ciphertext) {
     return ciphertext;
   }
   int decrypt_width = ciphertext.size() / width;
-  return transpose_col_encrypt(decrypt_width, ciphertext);
+  int rem = ciphertext.size() % width;
+  std::string output = "";
+  for (auto i = 0; i < decrypt_width; ++i) {
+    auto rem_cols = rem;
+    for (auto j = i; j < ciphertext.size(); j += decrypt_width) {
+      output += ciphertext[j];
+      j = rem_cols > 0 ? j + 1 : j;
+      --rem_cols;
+    }
+  }
+  for (auto i = 0, j = decrypt_width; i < rem; ++i, j += decrypt_width + 1) {
+    output += ciphertext[j];
+  }
+  return output;
 }

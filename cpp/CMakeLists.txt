@@ -8,6 +8,9 @@ project(Cryptography VERSION 1.0
                      DESCRIPTION "Cryptography"
                      LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 add_subdirectory(src)
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)

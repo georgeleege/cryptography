@@ -3,6 +3,9 @@
 #include <string_view>
 
 char shift(int key, char in) {
+  if (in < ' ' || in > '~') {
+    return in;
+  }
   in -= ' ';
   // modulo with different signs is not standard
   return (95 + (in + key) % 95) % 95 + ' ';

@@ -41,3 +41,26 @@ TEST_CASE("Caesar shift testing bounds", "[caesar]") {
 TEST_CASE("Caesar shift of testing bounds decrypt", "[caesar]") {
   REQUIRE(caesar_shift(-94, "}}}}}") == "~~~~~");
 }
+
+// tests for when characters are out not printable
+// e.g.\r\n
+
+TEST_CASE("Caesar shift of newline with key 0", "[caesar]") {
+  REQUIRE(caesar_shift(0, "\n") == "\n");
+}
+
+TEST_CASE("Caesar shift of newline with key 1", "[caesar]") {
+  REQUIRE(caesar_shift(1, "\n") == "\n");
+}
+
+TEST_CASE("Caesar shift with newline of 0 returns same", "[caesar]") {
+  REQUIRE(caesar_shift(0, "Hello\r\nWorld!") == "Hello\r\nWorld!");
+}
+
+TEST_CASE("Caesar shift with newline of 1", "[caesar]") {
+  REQUIRE(caesar_shift(1, "Hello\r\nWorld!") == "Ifmmp\r\nXpsme\"");
+}
+
+TEST_CASE("Caesar shift with newline  of -1", "[caesar]") {
+  REQUIRE(caesar_shift(-1, "Ifmmp\r\nXpsme\"") == "Hello\r\nWorld!");
+}

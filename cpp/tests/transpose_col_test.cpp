@@ -121,3 +121,21 @@ TEST_CASE("Transpose col encrypt with width 6, with rem", "[transpose_col]") {
 TEST_CASE("Transpose col decrypt with width 6, with rem", "[transpose_col]") {
   REQUIRE(transpose_col_decrypt(6, "HG!eelolrog e") == "Hello George!");
 }
+
+// tests with unprintable character like \r\n
+
+TEST_CASE("Transpose col encrypt newline width 2, with rem", "[transpose_col]") {
+  REQUIRE(transpose_col_encrypt(2, "Hello\nGeorge!") == "HloGog!el\nere");
+}
+
+TEST_CASE("Transpose col decrypt newline width 2, with rem", "[transpose_col]") {
+  REQUIRE(transpose_col_decrypt(2, "HloGog!el\nere") == "Hello\nGeorge!");
+}
+
+TEST_CASE("Transpose col encrypt newline width 3, with rem", "[transpose_col]") {
+  REQUIRE(transpose_col_encrypt(3, "Hello\rGeorge!") == "HlGr!eoegl\roe");
+}
+
+TEST_CASE("Transpose col decrypt newline width 3, with rem", "[transpose_col]") {
+  REQUIRE(transpose_col_decrypt(3, "HlGr!eoegl\roe") == "Hello\rGeorge!");
+}

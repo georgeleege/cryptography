@@ -13,10 +13,11 @@ int main(int argc, char **argv) {
 
   app.require_subcommand(/* min */ 0, /* max */ 1);
 
-  CLI::App *caesar = app.add_subcommand("caesar", "Caesar Shift");
   bool encrypt;
-  int caesar_key;
   std::string text;
+
+  CLI::App *caesar = app.add_subcommand("caesar", "Caesar Shift");
+  int caesar_key;
   caesar->add_flag("-e,--encrypt,!-d,!--decrypt", encrypt, "Encrypt or decrypt")
       ->required();
   caesar->add_option("-k,--key", caesar_key, "Integer key")->required();
@@ -26,6 +27,21 @@ int main(int argc, char **argv) {
       caesar_key *= -1;
     }
     std::cout << caesar_shift(caesar_key, text) << '\n';
+  });
+
+  CLI::App *vigenere = app.add_subcommand("vigenere", "Vigenere Cipher");
+  std::string text_key;
+  vigenere
+      ->add_flag("-e,--encrypt,!-d,!--decrypt", encrypt, "Encrypt or decrypt")
+      ->required();
+  vigenere->add_option("-k,--key", text_key, "String key")->required();
+  vigenere->add_option("text", text, "Text to encrypt or decrypt")->required();
+  vigenere->callback([&]() {
+    if (encrypt) {
+      std::cout << vigenere_encrypt(text_key, text) << '\n';
+    } else {
+      std::cout << vigenere_decrypt(text_key, text) << '\n';
+    }
   });
 
   CLI11_PARSE(app, argc, argv);

@@ -50,3 +50,13 @@ TEST_CASE("Vigenere encrypt with key that requires loop around", "[vigenere]") {
 TEST_CASE("Vigenere decrypt with key that requires loop around", "[vigenere]") {
   REQUIRE(vigenere_decrypt("~~~", "Gdkkn~Vnqkc ") == "Hello World!");
 }
+
+TEST_CASE("Vigenere encrypt practical test 1", "[vigenere]") {
+  REQUIRE(vigenere_encrypt("lemon", "Hello World!") == "5KZ\\^l=]b[Qf");
+}
+
+TEST_CASE("Vigenere decrypt practical test 1", "[vigenere]") {
+  REQUIRE(vigenere_decrypt("lemon", "5KZ\\^l=]b[Qf") == "Hello World!");
+}
+
+

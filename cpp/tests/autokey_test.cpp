@@ -64,3 +64,11 @@ TEST_CASE("Autokey decrypt with longer key 2", "[autokey]") {
   REQUIRE(autokey_decrypt(" ! ! ! ! ! !132bjkaf", "Hflmo!Wprmd\"") ==
           "Hello World!");
 }
+
+TEST_CASE("Autokey encrypt practical test 1", "[autokey]") {
+  REQUIRE(autokey_encrypt("lemon", "Hello World!") == "5KZ\\^H=\\_\\dX");
+}
+
+TEST_CASE("Autokey decrypt practical test 1", "[autokey]") {
+  REQUIRE(autokey_decrypt("lemon", "5KZ\\^H=\\_\\dX") == "Hello World!");
+}

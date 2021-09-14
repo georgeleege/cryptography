@@ -15,6 +15,7 @@ int main(int argc, char **argv) {
 
   bool encrypt;
   std::string text;
+  std::string text_key;
 
   CLI::App *caesar = app.add_subcommand("caesar", "Caesar Shift");
   int caesar_key;
@@ -30,7 +31,6 @@ int main(int argc, char **argv) {
   });
 
   CLI::App *vigenere = app.add_subcommand("vigenere", "Vigenere Cipher");
-  std::string text_key;
   vigenere
       ->add_flag("-e,--encrypt,!-d,!--decrypt", encrypt, "Encrypt or decrypt")
       ->required();
@@ -41,6 +41,20 @@ int main(int argc, char **argv) {
       std::cout << vigenere_encrypt(text_key, text) << '\n';
     } else {
       std::cout << vigenere_decrypt(text_key, text) << '\n';
+    }
+  });
+
+  CLI::App *autokey = app.add_subcommand("autokey", "Autokey Cipher");
+  autokey
+      ->add_flag("-e,--encrypt,!-d,!--decrypt", encrypt, "Encrypt or decrypt")
+      ->required();
+  autokey->add_option("-k,--key", text_key, "String key")->required();
+  autokey->add_option("text", text, "Text to encrypt or decrypt")->required();
+  autokey->callback([&]() {
+    if (encrypt) {
+      std::cout << autokey_encrypt(text_key, text) << '\n';
+    } else {
+      std::cout << autokey_decrypt(text_key, text) << '\n';
     }
   });
 

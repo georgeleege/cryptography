@@ -84,7 +84,7 @@ std::string autokey_decrypt(std::string_view key, std::string_view ciphertext) {
   }
   while (c_pos < ciphertext.size()) {
     int key_pos = c_pos - key.size();
-    output[c_pos] = shift_char(-ciphertext[key_pos], ciphertext[c_pos]);
+    output[c_pos] = shift_char(-output[key_pos], ciphertext[c_pos]);
     ++c_pos;
   }
   return output;

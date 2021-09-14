@@ -78,14 +78,11 @@ std::string autokey_decrypt(std::string_view key, std::string_view ciphertext) {
   std::string output(ciphertext.size(), ' ');
 
   auto c_pos = 0;
-  for (auto i = 0; i < key.size() && i < ciphertext.size(); ++i) {
+  for (auto i = 0; i < key.size() && i < ciphertext.size(); ++i, ++c_pos) {
     output[i] = shift_char(-key[i], ciphertext[i]);
-    ++c_pos;
   }
-  while (c_pos < ciphertext.size()) {
-    int key_pos = c_pos - key.size();
+  for (auto key_pos = 0; c_pos < ciphertext.size(); ++key_pos, ++c_pos) {
     output[c_pos] = shift_char(-output[key_pos], ciphertext[c_pos]);
-    ++c_pos;
   }
   return output;
 }

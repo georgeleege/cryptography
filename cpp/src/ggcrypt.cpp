@@ -1,4 +1,7 @@
 #include "substitution.h"
+#include "transposition.h"
+#include "primes.h"
+
 #include <iostream>
 
 #include "CLI/App.hpp"

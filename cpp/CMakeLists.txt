@@ -11,6 +11,10 @@ project(Cryptography VERSION 1.0
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# dynamic linking
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GMP REQUIRED IMPORTED_TARGET gmp gmpxx)
+
 add_subdirectory(src)
 add_subdirectory(lib/CLI11)
 
